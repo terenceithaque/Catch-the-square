@@ -1,6 +1,7 @@
 # Script pour le déroulement d'une partie
 import pygame  # Importer pygame
 from tkinter import messagebox
+from carre import *
 pygame.init()  # Initialiser pygame
 
 
@@ -21,17 +22,27 @@ def ask_quit():
 def game():
     "Démarrer une nouvelle partie"
     screen.fill((0, 0, 0))
+    carre = Carre()
+    carre.draw(screen)
+    pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?
     while running:
+        keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
+
         for event in pygame.event.get():  # Pour chaque évènement intercepté durant l'exécution du jeu
-            if event.type == pygame.QUIT:  # Si le joueur veut quitter le jeu
+            # Si le joueur veut quitter le jeu
+            if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
                 if ask_quit() == "yes":
                     running = False
 
                 else:
                     continue
 
-        keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
+            elif event.type == pygame.MOUSEBUTTONUP and event.button == pygame.BUTTON_LEFT:
+                # Obtenir la position du curseur de la souris
+                pos_souris = pygame.mouse.get_pos()
+                if carre.rect.collidepoint(pos_souris):
+                    print("Vous avez cliqué sur le carré !")
 
     pygame.display.flip()
 
