@@ -2,6 +2,7 @@
 import pygame  # Importer pygame
 from tkinter import messagebox
 from carre import *
+from joueur import *
 pygame.init()  # Initialiser pygame
 pygame.display.init()
 
@@ -23,6 +24,7 @@ def ask_quit():
 def game():
     "Démarrer une nouvelle partie"
     carre = Carre(screen_width, screen_height)
+    joueur = Joueur()
 
     pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?
@@ -46,7 +48,12 @@ def game():
                 # Obtenir la position du curseur de la souris
                 pos_souris = pygame.mouse.get_pos()
                 if carre.rect.collidepoint(pos_souris):
-                    print("Vous avez cliqué sur le carré !")
+                    # print("Vous avez cliqué sur le carré !")
+                    # Augmenter le score d'1 point.
+                    joueur.augmenter_score(montant=1)
+                    print(joueur.score)
+
+                    joueur.save_score()
 
         pygame.display.flip()
 
