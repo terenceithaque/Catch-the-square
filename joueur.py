@@ -13,6 +13,9 @@ class Joueur:
         with open(self.fichier_score, "r") as rf:  # Lire le meilleur score obtenu. rf = read file
             self.best_score = int(rf.read())
 
+        self.score_font = pygame.font.Font(None, 36)
+        self.best_score_font = pygame.font.Font(None, 36)
+
     def augmenter_score(self, montant):
         "Augmenter le score du joueur"
         self.score += montant  # Augmenter le score
@@ -37,3 +40,16 @@ class Joueur:
             with open(self.fichier_score, "w") as wf:
                 wf.write(str(self.best_score))  # Ecrire le meilleur score
                 wf.close()  # Fermer le fichier quand l'opération d'écriture est finie
+
+    def display_score(self, screen):
+        "Afficher le score et le meilleur score à l'écran"
+        score_text = self.score_font.render(
+            f"Score : {self.score}", True, (255, 255, 255))
+
+        best_score_text = self.score_font.render(
+            f"Meilleur score : {self.best_score}", True, (255, 255, 255))
+
+       # screen.fill((0, 0, 0))
+
+        screen.blit(score_text, (0, 0))
+        screen.blit(best_score_text, (0, 20))

@@ -29,6 +29,7 @@ class Carre(pygame.sprite.Sprite):
 
     def move(self, screen):
         "Déplacer le carré sur l'écran"
+        pygame.time.wait(5)
         direction_x = randint(-1, 1)
         direction_y = randint(-1, 1)
         self.rect.x += direction_x * self.speed

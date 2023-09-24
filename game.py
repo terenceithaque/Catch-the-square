@@ -55,6 +55,8 @@ def game():
 
                     joueur.save_score()
 
+        joueur.display_score(screen)
+
         pygame.display.flip()
 
 
