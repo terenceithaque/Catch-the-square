@@ -22,14 +22,16 @@ def ask_quit():
 
 def game():
     "Démarrer une nouvelle partie"
-    screen.fill((0, 0, 0))
-    carre = Carre()
+    carre = Carre(screen_width, screen_height)
+
     pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?
     while running:
+        screen.fill((0, 0, 0))
+
         keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
-       # carre.move()
-        carre.draw(screen)
+        carre.move(screen)
+        # carre.draw(screen)
 
         for event in pygame.event.get():  # Pour chaque évènement intercepté durant l'exécution du jeu
             # Si le joueur veut quitter le jeu
