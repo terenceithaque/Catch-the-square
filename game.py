@@ -3,6 +3,7 @@ import pygame  # Importer pygame
 from tkinter import messagebox
 from carre import *
 pygame.init()  # Initialiser pygame
+pygame.display.init()
 
 
 screen_width = 800  # Hauteur de l'écran
@@ -23,11 +24,12 @@ def game():
     "Démarrer une nouvelle partie"
     screen.fill((0, 0, 0))
     carre = Carre()
-    carre.draw(screen)
     pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?
     while running:
         keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
+       # carre.move()
+        carre.draw(screen)
 
         for event in pygame.event.get():  # Pour chaque évènement intercepté durant l'exécution du jeu
             # Si le joueur veut quitter le jeu
@@ -44,7 +46,7 @@ def game():
                 if carre.rect.collidepoint(pos_souris):
                     print("Vous avez cliqué sur le carré !")
 
-    pygame.display.flip()
+        pygame.display.flip()
 
 
 game()
