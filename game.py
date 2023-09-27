@@ -3,6 +3,7 @@ import pygame  # Importer pygame
 from tkinter import messagebox
 from carre import *
 from joueur import *
+from joueurs import *
 pygame.init()  # Initialiser pygame
 pygame.display.init()
 
@@ -24,7 +25,10 @@ def ask_quit():
 def game():
     "Démarrer une nouvelle partie"
     carre = Carre(screen_width, screen_height)
-    joueur = Joueur()
+    pseudo = entrer_pseudo()
+    creer_dossier()  # Créer un dossier au nom du joueur s'il n'existe pas encore
+    fichier_score = creer_fichier_score()
+    joueur = Joueur(pseudo=pseudo, fichier_score=fichier_score)
 
     pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?

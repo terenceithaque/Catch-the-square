@@ -5,13 +5,9 @@ import pygame
 class Joueur:
     "Joueur"
 
-    def __init__(self):
+    def __init__(self, pseudo, fichier_score):
         # Score du joueur. Equivaut au nombre de clics effectués sur le carré.
         self.score = 0
-        # Fichier dans le lequel le meilleur score est enregistré
-        self.fichier_score = "score.txt"
-        with open(self.fichier_score, "r") as rf:  # Lire le meilleur score obtenu. rf = read file
-            self.best_score = int(rf.read())
 
         self.score_font = pygame.font.Font(None, 36)
         self.best_score_font = pygame.font.Font(None, 36)
@@ -19,6 +15,15 @@ class Joueur:
         self.clics = 0  # Nombre total de clics effectués par le joueur, y compris en dehors du carré
 
         self.clics_font = pygame.font.Font(None, 36)
+
+        self.pseudo = pseudo  # Pseudo du joueur
+
+        # Fichier dans le lequel le meilleur score est enregistré
+        self.fichier_score = fichier_score
+        print(self.pseudo)
+
+        with open(self.fichier_score, "r") as rf:  # Lire le meilleur score obtenu. rf = read file
+            self.best_score = int(rf.read())
 
     def augmenter_score(self, montant):
         "Augmenter le score du joueur"
