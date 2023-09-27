@@ -25,6 +25,8 @@ class Joueur:
         with open(self.fichier_score, "r") as rf:  # Lire le meilleur score obtenu. rf = read file
             self.best_score = int(rf.read())
 
+        self.pseudo_font = pygame.font.Font(None, 36)
+
     def augmenter_score(self, montant):
         "Augmenter le score du joueur"
         self.score += montant  # Augmenter le score
@@ -73,3 +75,10 @@ class Joueur:
     def update_clics(self):
         "Mettre à jour le nombre de clics"
         self.clics += 1
+
+    def afficher_pseudo(self, screen):
+        "Afficher le pseudo du joueur"
+        pseudo_text = self.pseudo_font.render(
+            f"Joueur : {self.pseudo}", True, (255, 255, 255))
+
+        screen.blit(pseudo_text, (0, 60))

@@ -63,6 +63,7 @@ def game():
 
         joueur.display_score(screen)
         joueur.display_clics(screen)
+        joueur.afficher_pseudo(screen)
 
         pygame.display.flip()
 
