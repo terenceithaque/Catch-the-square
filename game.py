@@ -45,8 +45,10 @@ def game():
                     continue
 
             elif event.type == pygame.MOUSEBUTTONUP and event.button == pygame.BUTTON_LEFT:
+                joueur.update_clics()  # Mettre à jour le nombre total de clics
                 # Obtenir la position du curseur de la souris
                 pos_souris = pygame.mouse.get_pos()
+
                 if carre.rect.collidepoint(pos_souris):
                     # print("Vous avez cliqué sur le carré !")
                     # Augmenter le score d'1 point.
@@ -56,8 +58,9 @@ def game():
                     joueur.save_score()
 
         joueur.display_score(screen)
+        joueur.display_clics(screen)
 
         pygame.display.flip()
 
 
-game()
+game()  # Lancer le jeu

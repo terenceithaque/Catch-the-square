@@ -16,6 +16,10 @@ class Joueur:
         self.score_font = pygame.font.Font(None, 36)
         self.best_score_font = pygame.font.Font(None, 36)
 
+        self.clics = 0  # Nombre total de clics effectués par le joueur, y compris en dehors du carré
+
+        self.clics_font = pygame.font.Font(None, 36)
+
     def augmenter_score(self, montant):
         "Augmenter le score du joueur"
         self.score += montant  # Augmenter le score
@@ -53,3 +57,14 @@ class Joueur:
 
         screen.blit(score_text, (0, 0))
         screen.blit(best_score_text, (0, 20))
+
+    def display_clics(self, screen):
+        "Afficher le nombre total de clics effectués par le joueur"
+        clics_text = self.clics_font.render(
+            f"Total clics : {self.clics}", True, (255, 255, 255))
+
+        screen.blit(clics_text, (0, 40))
+
+    def update_clics(self):
+        "Mettre à jour le nombre de clics"
+        self.clics += 1

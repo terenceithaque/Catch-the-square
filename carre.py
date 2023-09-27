@@ -47,6 +47,8 @@ class Carre(pygame.sprite.Sprite):
         if self.rect.y < 0:
             self.rect.y = 0
 
+        pygame.time.wait(15)
+
         self.draw(screen)
 
     def draw(self, screen):
