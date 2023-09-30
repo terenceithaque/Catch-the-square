@@ -4,6 +4,8 @@ from tkinter import messagebox
 from carre import *
 from joueur import *
 from joueurs import *
+from pause import *
+from threading import Timer
 pygame.init()  # Initialiser pygame
 pygame.display.init()
 
@@ -30,15 +32,20 @@ def game():
     fichier_score = creer_fichier_score()
     joueur = Joueur(pseudo=pseudo, fichier_score=fichier_score)
 
+    GAME_OVER = pygame.USEREVENT + 1
+    duree_partie = 1000 * 120  # Durée de la partie convertie en secondes
+    pygame.time.set_timer(GAME_OVER, duree_partie)
+
     pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?
     while running:
+        print("Temps restant :", duree_partie / 1000)
         screen.fill((0, 0, 0))
 
         keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
         carre.move(screen)
+        pause(keys)
         # carre.draw(screen)
-
         for event in pygame.event.get():  # Pour chaque évènement intercepté durant l'exécution du jeu
             # Si le joueur veut quitter le jeu
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
@@ -60,6 +67,14 @@ def game():
                     print(joueur.score)
 
                     joueur.save_score()
+
+            elif event.type == GAME_OVER:
+                game_over_time = Timer(5.0, joueur.game_over(screen, screen_width,
+                                                             screen_height, delai=5000))
+
+                game_over_time.start()
+
+                running = False
 
         joueur.display_score(screen)
         joueur.display_clics(screen)

@@ -27,6 +27,8 @@ class Joueur:
 
         self.pseudo_font = pygame.font.Font(None, 36)
 
+        self.game_over_font = pygame.font.Font(None, 20)
+
     def augmenter_score(self, montant):
         "Augmenter le score du joueur"
         self.score += montant  # Augmenter le score
@@ -82,3 +84,11 @@ class Joueur:
             f"Joueur : {self.pseudo}", True, (255, 255, 255))
 
         screen.blit(pseudo_text, (0, 60))
+
+    def game_over(self, screen, screen_width, screen_height, delai):
+        "Game Over"
+        game_over_text = self.game_over_font.render(
+            f" Le temps imparti est écoulé. Votre score est de {self.score}.", True, (255, 0, 0))
+
+        screen.blit(game_over_text, (screen_width / 2, screen_height / 2))
+        self.save_score()
