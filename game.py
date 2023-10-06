@@ -34,6 +34,9 @@ def game():
 
     GAME_OVER = pygame.USEREVENT + 1
     duree_partie = 1000 * 120  # Durée de la partie convertie en secondes
+    minutes, secondes = divmod(duree_partie, 60)
+    print(f"minutes : {minutes}, secondes : {secondes}")
+
     pygame.time.set_timer(GAME_OVER, duree_partie)
 
     pygame.display.flip()
