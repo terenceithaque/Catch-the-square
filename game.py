@@ -8,6 +8,7 @@ from pause import *
 from threading import Timer
 pygame.init()  # Initialiser pygame
 pygame.display.init()
+pygame.mixer.init()
 
 
 screen_width = 800  # Hauteur de l'écran
@@ -33,16 +34,24 @@ def game():
     joueur = Joueur(pseudo=pseudo, fichier_score=fichier_score)
 
     GAME_OVER = pygame.USEREVENT + 1
-    duree_partie = 1000 * 120  # Durée de la partie convertie en secondes
-    minutes, secondes = divmod(duree_partie, 60)
+    duree_partie = 1000 * 120  # Durée de la partie convertie en millisecondes
+    secondes = duree_partie / 1000
+    minutes = duree_partie / 60000
+    secondes_par_min = secondes / 2  # Nombre de secondes dans une minute
+    print(secondes_par_min)
+
     print(f"minutes : {minutes}, secondes : {secondes}")
 
     pygame.time.set_timer(GAME_OVER, duree_partie)
 
+    chemin_musique = "musique/catch_the_square.mp3"
+    pygame.mixer.music.load(chemin_musique)
+    pygame.mixer.music.play(-1)
+
     pygame.display.flip()
     running = True  # Est-ce que le jeu est en cours d'exécution ?
     while running:
-        print("Temps restant :", duree_partie / 1000)
+        # print("Temps restant :", duree_partie / 1000)
         screen.fill((0, 0, 0))
 
         keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
