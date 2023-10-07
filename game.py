@@ -25,6 +25,39 @@ def ask_quit():
     return ask
 
 
+def update_time_left(duree, secondes, minutes):
+    "Mettre à jour le temps restant"
+    temps = pygame.time.get_ticks()
+    duree -= temps
+    secondes = duree / 1000
+    print("secondes :", secondes)
+    minutes = duree / 60000
+    print("minutes :", minutes)
+    return secondes, minutes
+
+
+def convert_time_left(duree, sec, min):
+    "Convertir le temps restant en minutes : secondes"
+    temps_restant = update_time_left(duree, sec, min)
+    for index, valeur in enumerate(temps_restant):
+        print(f"Index : {index}, Valeur : {valeur}")
+        global secondes
+        secondes = temps_restant[0]
+        global minutes
+        minutes = temps_restant[1]
+        secondes_par_minute = 60  # Nombre de secondes dans une minute
+        if secondes < secondes_par_minute:
+            minutes -= 1
+
+
+def display_time_left():
+    time_left_font = pygame.font.Font(None, 36)
+    str_temps_restant = time_left_font.render(
+        f"{minutes} : {secondes}", True, (255, 255, 255))
+
+    screen.blit(str_temps_restant, (0, 80))
+
+
 def game():
     "Démarrer une nouvelle partie"
     carre = Carre(screen_width, screen_height)
@@ -53,6 +86,8 @@ def game():
     while running:
         # print("Temps restant :", duree_partie / 1000)
         screen.fill((0, 0, 0))
+       # update_time_left(duree_partie, secondes, minutes)
+        convert_time_left(duree_partie, secondes, minutes)
 
         keys = pygame.key.get_pressed()  # Obtenir toutes les touches pressées par le joueur
         carre.move(screen)
@@ -91,6 +126,8 @@ def game():
         joueur.display_score(screen)
         joueur.display_clics(screen)
         joueur.afficher_pseudo(screen)
+
+        display_time_left()
 
         pygame.display.flip()
 
